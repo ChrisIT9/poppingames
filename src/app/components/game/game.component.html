@@ -1,0 +1,14 @@
+<div class="card custom-card" [style.background-image]="'url(' + (game?.background_image || '/assets/default/gameboy.svg') + ')'">
+    <div class="card-text">
+      <div class="platforms">
+        <div 
+          class="platform-icon" 
+          *ngFor="let platform of game?.parent_platforms"
+          [style.background-image]="'url(/assets/icons/' + platform.platform.slug + '.svg)'"
+        >
+        </div>
+      </div>
+      <h3> {{ game?.name }} </h3>
+      <p class="subtitle"> {{ game?.released | date }} </p>
+    </div>
+</div>

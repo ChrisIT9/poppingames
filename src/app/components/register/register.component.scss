@@ -1,0 +1,31 @@
+.register {
+    max-width: 600px;
+}
+
+.errors {
+    width: 100%;
+    color: #ff6565;
+    text-align: center;
+}
+
+.success {
+    height: 0px;
+    color: #864879;
+    position: absolute;
+    background-color: #1F1D36;
+    overflow: hidden;
+    transition: 0.3s ease-in-out height;
+    overflow-y: hidden;
+}
+
+.success-icon {
+    font-size: 5rem;
+    height: 5rem;
+    width: 5rem;
+}
+
+.error-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+}

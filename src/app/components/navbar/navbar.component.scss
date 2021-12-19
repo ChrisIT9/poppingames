@@ -1,0 +1,25 @@
+.custom-navbar {
+    color: white !important; 
+    background-color: #1f1d36 !important;
+}
+
+.white {
+    font-size: 1.2rem;
+    color: white !important;
+}
+
+.white-clickable {
+    color: white !important;
+    transition: 0.2s ease-in-out all;
+    font-size: 1.2rem !important;
+    text-decoration: none !important;
+
+    &:hover {
+        color: #E9A6A6 !important;
+    }
+}
+
+.navbar-toggler {
+    border: none !important;
+    box-shadow: none !important;
+}

@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  rawgEndpoint: "https://api.rawg.io/api/games?key=56b082e1ec4946e4a97cfb2824f0c3a7",
+  backendEndpoint: "http://192.168.1.200:3001"
 };
 
 /*
