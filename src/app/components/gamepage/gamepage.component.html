@@ -143,7 +143,7 @@
                 <p class="w-100" *ngIf="review.time">Hai già lasciato una recensione il {{ review.time.toString() | isodate }}. </p>
                 <textarea class="form-control form-control-lg black" name="reviewContent" [(ngModel)]="review.reviewContent" maxlength="140" minlength="1" placeholder="Recensione">
                 </textarea>
-                <mat-slider name="rating" id="rating" (change)="updateVote()" thumbLabel class="w-50 slider mt-2 mb-2" min="0.0" max="10.0" step="0.5" [value]="(review.rating !== undefined ? review.rating : '5.0')"></mat-slider>
+                <mat-slider [displayWith]="formatVote" name="rating" id="rating" (change)="updateVote()" thumbLabel class="w-50 slider mt-2 mb-2" min="0.0" max="10.0" step="0.5" [value]="(review.rating !== undefined ? review.rating : '5.0')"></mat-slider>
                 <button class="form-control btn btn-success" (click)="sendReview()"> {{ review.time ? "Modifica" : "Invia" }} recensione</button>
             </form>
         </div>

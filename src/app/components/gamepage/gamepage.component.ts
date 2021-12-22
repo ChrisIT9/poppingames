@@ -18,6 +18,10 @@ export class GamepageComponent implements OnInit {
   reviews: Review[] = new Array();
   review: Partial<Review> = {}
 
+  formatVote(value: number) {
+    return `${value}/10`;
+  }
+
   stripUrl(url: string | undefined) {
     if (!url) return undefined;
 
