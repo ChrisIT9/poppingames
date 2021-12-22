@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +15,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GameComponent } from './components/game/game.component';
 import { DatePipe } from './pipes/date.pipe';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { GamepageComponent } from './components/gamepage/gamepage.component';
+import { FulldatePipe } from './pipes/fulldate.pipe';
+import { IsodatePipe } from './pipes/isodate.pipe';
 
 
 
@@ -24,7 +29,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     LoginComponent,
     GameComponent,
     DatePipe,
-    NavbarComponent
+    NavbarComponent,
+    GamepageComponent,
+    FulldatePipe,
+    IsodatePipe
   ],
   imports: [
     BrowserModule,
@@ -32,7 +40,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

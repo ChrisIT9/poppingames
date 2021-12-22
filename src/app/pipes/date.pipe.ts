@@ -5,10 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DatePipe implements PipeTransform {
 
-  transform(value: string | undefined): unknown {
-    if (!value) return "";
+  transform(value: string | undefined) {
+    if (!value) return undefined;
     const [ year, month, day ] = value.split("-");
-    return `${day}/${month}/${year}`
+    return `${day}/${month}/${year}`;
   }
 
 }

@@ -1,0 +1,159 @@
+<app-navbar></app-navbar>
+<div class="container-fluid g-0">
+    <div class="row g-0 position-relative">
+        <div class="col-12">
+            <div class="hero" 
+                [ngStyle]="{
+                    'background-image': 'linear-gradient(to bottom, rgba(31, 29, 54, 0.4) 0%, rgba(31, 29, 54, 1)),' +
+                    'url(' + ( game?.background_image_additional || game?.background_image || '/assets/default/gameboy.svg' ) + ')'
+                }"> 
+            </div>
+        </div>
+        <div class="col-12 text-overlay">
+            <h1 class="title"> {{ game?.name }} </h1>
+            <div *ngIf="game?.parent_platforms" class="platforms">
+                <div 
+                  class="platform-icon" 
+                  *ngFor="let platform of game?.parent_platforms"
+                  [style.background-image]="'url(/assets/icons/' + platform.platform.slug + '.svg)'"
+                >
+                </div>
+            </div>
+            <div *ngIf="(game?.genres && game!.genres.length > 0)" class="genres">
+                <div class="d-flex flex-row justify-content-center align-items-center" 
+                    *ngFor="let genre of game?.genres!.slice(0, 3); let size = count; let i = index"> 
+                    <p> {{ genre.name | uppercase }} </p>
+                    <span *ngIf="i < (size - 1)" class="separator"></span>
+                </div>
+            </div>
+            <div class="game-details">
+                <div *ngIf="game?.metacritic" class="metacritic">
+                    <img class="img-fluid m-logo" src="/assets/misc/Metacritic_logo.svg">
+                    <mat-progress-spinner 
+                    class="score-spinner" 
+                    [value]="game?.metacritic"
+                    ></mat-progress-spinner>
+                    <h3 class="score"> {{ game?.metacritic }} </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-lg pb-5">
+    <div class="row">
+        <div class="col-12 mt-4">
+            <div class="description" [innerHTML]="game?.description"></div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3>Informazioni</h3>
+            <div class="info-box">
+                <div class="row w-100 info p-0">
+                    <div class="col-lg-10 d-flex flex-column justify-content-evenly align-items-center text-center align-items-lg-start text-lg-start">
+                        <p *ngIf="game?.released"> Rilasciato: <b> {{ game?.released | fulldate }} </b> </p>
+                        <hr *ngIf="game?.released" class="w-100">
+
+                        <p *ngIf="game?.developers"> Sviluppato da: 
+                            <b> <span *ngFor="let developer of game?.developers; let i = index; let size = count"> 
+                                {{ developer.name }}<span *ngIf="i < size - 1">,</span>
+                            </span> </b>
+                        </p>
+                        <hr *ngIf="game?.developers" class="w-100">
+
+                        <p *ngIf="game?.publishers"> Publisher:
+                            <b> <span *ngFor="let publisher of game?.publishers; let i = index; let size = count"> 
+                                {{ publisher.name }}<span *ngIf="i < size - 1">,</span>
+                            </span> </b>
+                        </p>
+                        <hr *ngIf="game?.publishers" class="w-100">
+
+                        <p *ngIf="game?.website"> Sito web:
+                            <b> <a target="_blank" [href]="game?.website"> {{ stripUrl(game?.website) }} </a> </b>
+                        </p>
+                        <hr *ngIf="game?.website" class="w-100">
+
+                        <p *ngIf="game?.platforms"> Disponibile per:
+                            <span *ngFor="let platform of game?.platforms; let i = index; let size = count"> 
+                                <b>{{ platform.platform.name }}</b>
+                                <span *ngIf="i < size - 1">, </span> 
+                            </span>
+                        </p>
+                        <hr class="d-lg-none w-100 mb-4">
+                    </div>
+                    <div class="col-lg-2 text-center d-flex flex-column align-items-center justify-content-center">
+                        <div>
+                            <div class="esrb-logo" [style.background-image]="'url(assets/esrb/' + game?.esrb_rating?.slug + '.svg)'"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="screenshots.length > 0" class="row mt-4">
+        <h3>Screenshot</h3>
+        <div class="col-12">
+            <div id="screenshotCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner br-10">
+                  <div *ngFor="let screenshot of screenshots; let i = index" [class]="(i === 0 ? 'carousel-item active' : 'carousel-item')">
+                    <img [src]="screenshot.image" class="d-block w-100">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#screenshotCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#screenshotCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-7 reviews">
+            <h3>{{ reviews.length }} {{ (reviews.length > 1 || reviews.length === 0) ? "recensioni" : "recensione" }}</h3>
+            <div *ngFor="let currentReview of reviews">
+                <div class="card review-card">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="card-body">
+                                <div class="card-title d-flex flex-column justify-content-center">
+                                   <h2>{{ currentReview.reviewedBy }}</h2>
+                                </div>
+                                <div class="d-flex flex-column justify-content-between">
+                                    <p>{{ currentReview.reviewContent }}</p>
+                                    <i><p class="m-0 p-0">{{ currentReview.time.toString() | isodate }}</p></i>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-3 d-flex flex-column justify-content-center align-items-end">
+                            <h2 class="mx-4">{{ currentReview.rating }}/10</h2>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <h4 *ngIf="reviews.length <= 0">Nessuno ha ancora recensito questo gioco, sii il primo a farlo!</h4>
+        </div>
+        <div class="col-lg-5 mt-custom-sm">
+            <h4>Scrivi una recensione</h4>
+            <form class="d-flex flex-column justify-content-evenly align-items-center text-start">
+                <p class="w-100" *ngIf="review.time">Hai già lasciato una recensione il {{ review.time.toString() | isodate }}. </p>
+                <textarea class="form-control form-control-lg w-100 black" name="reviewContent" [(ngModel)]="review.reviewContent" maxlength="140" minlength="1" placeholder="Recensione">
+                </textarea>
+                <mat-slider name="rating" id="rating" (change)="updateVote()" thumbLabel class="w-50 slider mt-2 mb-2" min="0.0" max="10.0" step="0.5" [value]="(review.rating !== undefined ? review.rating : '5.0')"></mat-slider>
+                <button class="form-control btn btn-success" (click)="sendReview()"> {{ review.time ? "Modifica" : "Invia" }} recensione</button>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+    
+
+    
+
+    
+    

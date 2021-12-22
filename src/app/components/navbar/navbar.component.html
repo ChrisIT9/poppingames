@@ -2,7 +2,8 @@
     <div class="container-fluid">
         <a class="navbar-brand">
             <img src="/assets/icons/logo.svg" width="30" height="30" class="d-inline-block align-text-top">
-            PoppinGames
+            <a *ngIf="!username" class="ms-1 white-clickable" routerLink="/gaming/login">PoppinGames</a>
+            <a *ngIf="username" class="ms-1 white-clickable" routerLink="/gaming">PoppinGames</a>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,13 +22,14 @@
                     </li>
                 </ul>
             </div>
+            <hr class="display-lg-none">
             <div class="d-lg-flex flex-row justify-content-between">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
                         <a *ngIf="username" class="nav-link white"> Ciao, <a class="white-clickable" href="#"> <b> {{ username }} </b> </a> </a>
                     </li>
                     <li class="nav-item">
-                        <ng-content></ng-content>
+                        <button *ngIf="username" class="btn btn-danger" (click)="logout()">Disconnetti</button>
                     </li>
                 </ul>
             </div>

@@ -15,7 +15,7 @@
             <h1> Accedi! </h1>
         </div>
         <div class="col-12 mb-3 bold">
-            <input class="form-control fw-bold" type="text" minlength="5" name="username" [(ngModel)]="username" placeholder="Username">
+            <input class="form-control fw-bold" type="text" minlength="5" name="username" autocomplete="off" [(ngModel)]="username" placeholder="Username">
         </div>
         <div class="col-12 mb-3">
             <input type="password" class="form-control fw-bold" minlength="6" name="password" [(ngModel)]="password" placeholder="Password">
@@ -23,6 +23,5 @@
         <div class="col-12 mt-5">
             <button class="btn btn-primary form-control" (click)="login()">Accedi</button>
         </div>
-        
     </form>
 </div>

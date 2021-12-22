@@ -1,20 +1,21 @@
-<app-navbar location="home" [username]="username"><button class="btn btn-danger" (click)="logout()">Disconnettiti</button></app-navbar>
+<app-navbar></app-navbar>
 <div class="mt-5 container-lg p-3">
-    <div>
-        <form>
-            <div class="row">
-                <div class="col-9">
-                    <input type="text" class="form-control" name="query" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Cerca un gioco!">
-                </div>
-                <div class="col-3">
-                    <button class="btn btn-success w-100" (click)="search()">Cerca</button>
-                </div>
-            </div>
-        </form>
+    <div class="input-group mb-3">
+        <input type="text" autocomplete="off" class="form-control custom-text" name="query" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Cerca un gioco!">
+        <div class="input-group-append">
+          <button class="btn btn-success custom-button" (click)="search()" type="button">Cerca</button>
+          <button *ngIf="hasSearched" class="btn btn-danger reset-button" (click)="reset()" type="button">Reset</button>
+        </div>
     </div>
     
     <div class="row mt-5">
-        <div class="col-lg-4 col-md-6 mb-5" *ngFor="let game of games">
+        <div *ngIf="noResults && hasSearched" class="col-12 no-results">
+            <h1> Nessun risultato trovato :( </h1> 
+        </div>
+        <div *ngIf="loading" class="col-12 d-flex flex-row justify-content-center align-items-center">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-5" *ngFor="let game of games" routerLink='/gaming/games/{{ game.id }}' [state]="game">
             <app-game [game]="game"></app-game>
         </div>
     </div>
