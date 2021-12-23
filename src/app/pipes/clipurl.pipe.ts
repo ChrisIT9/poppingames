@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'clipurl'
+    name: 'clipurl'
 })
 export class ClipurlPipe implements PipeTransform {
 
-  transform(value: string) {
-    let endIndex = value.indexOf("-preview");
-    return value.substring(0, endIndex) + ".mp4";
-  }
+    transform(value: string) {
+        let endIndex = value.indexOf("-preview");
+        return value.substring(0, endIndex) + ".mp4";
+    }
 
 }

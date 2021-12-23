@@ -24,31 +24,31 @@ import { ClipurlPipe } from './pipes/clipurl.pipe';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    GamingComponent,
-    RegisterComponent,
-    LoginComponent,
-    GameComponent,
-    DatePipe,
-    NavbarComponent,
-    GamepageComponent,
-    FulldatePipe,
-    IsodatePipe,
-    FatalerrorComponent,
-    ClipurlPipe
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatProgressSpinnerModule,
-    MatSliderModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        GamingComponent,
+        RegisterComponent,
+        LoginComponent,
+        GameComponent,
+        DatePipe,
+        NavbarComponent,
+        GamepageComponent,
+        FulldatePipe,
+        IsodatePipe,
+        FatalerrorComponent,
+        ClipurlPipe
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        MatSliderModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

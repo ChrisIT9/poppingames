@@ -8,42 +8,42 @@ interface Options {
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class RawgService {
-  private endpoint = environment.rawgEndpoint;
-  private apiKey = environment.apiKey;
+    private endpoint = environment.rawgEndpoint;
+    private apiKey = environment.apiKey;
 
-  constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient) { }
 
-  getGames(options?: Options) {
-    const limit = options?.limit || 30;
-    return this.httpClient.get<Response<GameResponse>>(`${this.endpoint}?page_size=${limit}&key=${this.apiKey}`);
-  }
+    getGames(options?: Options) {
+        const limit = options?.limit || 30;
+        return this.httpClient.get<Response<GameResponse>>(`${this.endpoint}?page_size=${limit}&key=${this.apiKey}`);
+    }
 
-  getCachedGames() {
-    return this.httpClient.get<Response<GameResponse>>(`${environment.backendEndpoint}/games`);
-  }
+    getCachedGames() {
+        return this.httpClient.get<Response<GameResponse>>(`${environment.backendEndpoint}/games`);
+    }
 
-  getGameById(id: string) {
-    return this.httpClient.get<DetailedGameResponse>(`${this.endpoint}/${id}?key=${this.apiKey}`);
-  }
+    getGameById(id: string) {
+        return this.httpClient.get<DetailedGameResponse>(`${this.endpoint}/${id}?key=${this.apiKey}`);
+    }
 
-  getCachedGameById(id: string) {
-    return this.httpClient.get<DetailedGameResponse>(`${environment.backendEndpoint}/games/${id}`);
-  }
+    getCachedGameById(id: string) {
+        return this.httpClient.get<DetailedGameResponse>(`${environment.backendEndpoint}/games/${id}`);
+    }
 
-  searchGames(query: string, options?: Options) {
-    const limit = options?.limit || 30;
-    return this.httpClient.get<Response<GameResponse>>(`${this.endpoint}?search=${query}&page_size=${limit}&key=${this.apiKey}`);
-  }
+    searchGames(query: string, options?: Options) {
+        const limit = options?.limit || 30;
+        return this.httpClient.get<Response<GameResponse>>(`${this.endpoint}?search=${query}&page_size=${limit}&key=${this.apiKey}`);
+    }
 
-  getCachedScreenshots(id: string) {
-    return this.httpClient.get<ScreenshotResponse>(`${environment.backendEndpoint}/games/${id}/screenshots?key=${this.apiKey}`);
-  }
+    getCachedScreenshots(id: string) {
+        return this.httpClient.get<ScreenshotResponse>(`${environment.backendEndpoint}/games/${id}/screenshots?key=${this.apiKey}`);
+    }
 
-  getScreenshots(id: string) {
-    return this.httpClient.get<ScreenshotResponse>(`${this.endpoint}/${id}/screenshots?key=${this.apiKey}`);
-  }
+    getScreenshots(id: string) {
+        return this.httpClient.get<ScreenshotResponse>(`${this.endpoint}/${id}/screenshots?key=${this.apiKey}`);
+    }
   
 }
