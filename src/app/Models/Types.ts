@@ -179,3 +179,39 @@ export interface Review {
     reviewContent: string,
     time: Date
 }
+
+export interface BackendResponse {
+    isLoggedIn: boolean
+}
+
+export interface TwitchGame {
+    id: string,
+    name: string,
+    box_art_url: string
+}
+
+export interface TwitchGameResponse {
+    data: TwitchGame[]
+}
+
+export interface Clip {
+    id: string;
+    url: string;
+    embed_url: string;
+    broadcaster_id: string;
+    broadcaster_name: string;
+    creator_id: string;
+    creator_name: string;
+    video_id: string;
+    game_id: string;
+    language: string;
+    title: string;
+    view_count: number;
+    created_at: Date;
+    thumbnail_url: string;
+    duration: number;
+}
+
+export interface TwitchClipResponse {
+    data: Clip[]
+}

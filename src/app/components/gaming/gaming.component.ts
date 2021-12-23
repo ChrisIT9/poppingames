@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { GameResponse } from 'src/app/Models/Types';
+import { Router } from '@angular/router';
+import { BackendResponse, GameResponse } from 'src/app/Models/Types';
+import { BackendService } from 'src/app/services/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { RawgService } from 'src/app/services/rawg.service';
 
@@ -17,15 +19,24 @@ export class GamingComponent implements OnInit {
   hasSearched = false;
   noResults = true;
 
-  constructor(private rawgService: RawgService, private router: Router, public localStorageService: LocalstorageService) { }
+  constructor(private rawgService: RawgService, private router: Router, public localStorageService: LocalstorageService, private backendService: BackendService) { }
 
-  private init() {
+  private handleErrors(err: HttpErrorResponse) {
+    console.log(err);
+    localStorage.clear();
+    const fatalError = document.getElementById("fatal-error");
+    if (fatalError) fatalError.style.display = "flex";
+  }
+  
+  private init(res?: BackendResponse) {
+    if (!res?.isLoggedIn) localStorage.clear();
+    
     document.title = "PoppinGames";
     this.loading = true;
     this.hasSearched = false;
     this.query = undefined;
     this.rawgService
-      .getCachedGames()
+      .getGames()
       .subscribe(res => {
         this.games = res.results;
         this.loading = false;
@@ -33,11 +44,10 @@ export class GamingComponent implements OnInit {
       })
   }
 
-
   ngOnInit(): void {
-    if (!localStorage.getItem("username"))  
-      this.router.navigateByUrl("/gaming/login");
-    else this.init();
+    this.backendService
+    .getHome()
+    .subscribe({ next: this.init.bind(this), error: this.handleErrors.bind(this) });
   }
 
   search() {

@@ -192,9 +192,31 @@
 }
 
 .slider {
-    transform: scale(1.8);
+    transform: scale(1.7);
     width: 100%;
 }
+
+.clips .carousel-control-prev {
+    height: 100px;
+    top: calc(50% - 50px);
+}
+
+.clips .carousel-control-next {
+    height: 100px;
+    top: calc(50% - 50px);
+}
+
+.link {
+    text-decoration: none;
+    color: #ff6e6e;
+    transition: 0.2s ease-in-out all;
+
+    &:hover {
+        color: #ffafaf !important;
+        text-shadow: 1px 1px 6px rgba(0, 0, 0, 1);
+    }
+}
+
 
 
 @media screen and (max-width: 767px) {
@@ -210,10 +232,5 @@
 @media screen and (min-width: 992px) {
     .title {
         font-size: 2.5rem;
-    }
-
-    .slider {
-        width: 100% !important;
-        transform: scale(1);
     }
 }

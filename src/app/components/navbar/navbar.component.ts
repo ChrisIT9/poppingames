@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BackendService } from 'src/app/services/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
 @Component({
@@ -8,17 +9,22 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  username = localStorage.getItem("username");
-  @Input() location: string | undefined
+  localStorage: Storage | undefined;
 
-  constructor(private router: Router, public localStorageService: LocalstorageService) { }
+  private redirect() {
+    localStorage.clear();
+    this.router.navigateByUrl("/gaming/");
+  }
+
+  constructor(private router: Router, private backendService: BackendService, public localStorageService: LocalstorageService) { }
 
   ngOnInit(): void {
+    this.localStorage = this.localStorageService.getLocalStorage();
   }
 
   logout() {
-    localStorage.clear();
-    document.cookie="connect.sid=; Path=/; Max-Age=0";
-    this.router.navigateByUrl("/gaming/login");
+    this.backendService
+    .logout()
+    .subscribe({ next: this.redirect.bind(this) });
   }
 }

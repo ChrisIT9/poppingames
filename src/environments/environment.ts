@@ -6,7 +6,10 @@ export const environment = {
   production: false,
   rawgEndpoint: "https://api.rawg.io/api/games",
   apiKey: "56b082e1ec4946e4a97cfb2824f0c3a7",
-  backendEndpoint: "http://192.168.1.200:3001"
+  backendEndpoint: "http://192.168.1.200:3001",
+  twitchEndpoint: "https://api.twitch.tv/helix",
+  twitchClientId: "2udmhqo5k9tsqblyowayqyncdezzyp",
+  twitchAccessToken: "bvm8s9ha1c8d82prv787wqvm5w2mns"
 };
 
 /*

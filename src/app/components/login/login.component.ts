@@ -15,6 +15,18 @@ export class LoginComponent implements OnInit {
   password: string | undefined;
   errors: string[] = [];
 
+  constructor(private backendService: BackendService, private router: Router) { }
+
+  private redirect(err: HttpErrorResponse) {
+    if (!err.status || err.status === 500) {
+      console.log(err);
+      localStorage.clear();
+      const fatalError = document.getElementById("fatal-error");
+      if (fatalError) fatalError.style.display = "flex";
+    }
+    else this.router.navigateByUrl('/gaming');
+  }
+
   private async loginHandler(res: LoginResponse) {
     localStorage.setItem("username", res.username);
     localStorage.setItem("isAdmin", res.isAdmin.toString());
@@ -45,10 +57,10 @@ export class LoginComponent implements OnInit {
     errors && this.errors.push(...errors);
   }
 
-  constructor(private backendService: BackendService, private router: Router) { }
-
   ngOnInit(): void {
-    if (localStorage.getItem("username")) this.router.navigateByUrl('/gaming');
+    this.backendService
+    .getLogin()
+    .subscribe({ error: this.redirect.bind(this) });
   }
 
   login() {

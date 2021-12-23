@@ -2,8 +2,7 @@
     <div class="container-fluid">
         <a class="navbar-brand">
             <img src="/assets/icons/logo.svg" width="30" height="30" class="d-inline-block align-text-top">
-            <a *ngIf="!username" class="ms-1 white-clickable" routerLink="/gaming/login">PoppinGames</a>
-            <a *ngIf="username" class="ms-1 white-clickable" routerLink="/gaming">PoppinGames</a>
+            <a class="ms-1 white-clickable" routerLink="/gaming/">PoppinGames</a>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -12,13 +11,13 @@
             <div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a *ngIf="username" class="nav-link white-clickable" routerLink="/gaming">Home</a>
+                        <a *ngIf="localStorage?.getItem('username')" class="nav-link white-clickable" routerLink="/gaming">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a *ngIf="!username" class="nav-link white-clickable" routerLink="/gaming/login">Login</a>
+                        <a *ngIf="!localStorage?.getItem('username')" class="nav-link white-clickable" routerLink="/gaming/login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a *ngIf="!username" class="nav-link white-clickable" routerLink="/gaming/register">Registrazione</a>
+                        <a *ngIf="!localStorage?.getItem('username')" class="nav-link white-clickable" routerLink="/gaming/register">Registrazione</a>
                     </li>
                 </ul>
             </div>
@@ -26,10 +25,10 @@
             <div class="d-lg-flex flex-row justify-content-between">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
-                        <a *ngIf="username" class="nav-link white"> Ciao, <a class="white-clickable" href="#"> <b> {{ username }} </b> </a> </a>
+                        <a *ngIf="localStorage?.getItem('username')" class="nav-link white"> Ciao, <a class="white-clickable" href="#"> <b> {{ localStorage?.getItem('username') }} </b> </a> </a>
                     </li>
                     <li class="nav-item">
-                        <button *ngIf="username" class="btn btn-danger" (click)="logout()">Disconnetti</button>
+                        <button *ngIf="localStorage?.getItem('username')" class="btn btn-danger" (click)="logout()">Disconnetti</button>
                     </li>
                 </ul>
             </div>

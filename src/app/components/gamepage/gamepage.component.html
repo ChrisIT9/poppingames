@@ -27,14 +27,14 @@
                 </div>
             </div>
             <div class="game-details">
-                <div *ngIf="game?.metacritic" class="metacritic">
+                <a *ngIf="game?.metacritic" [attr.href]="(game?.metacritic_url ? game?.metacritic_url : null)" class="metacritic" target="_blank">
                     <img class="img-fluid m-logo" src="/assets/misc/Metacritic_logo.svg">
                     <mat-progress-spinner 
                     class="score-spinner" 
                     [value]="game?.metacritic"
                     ></mat-progress-spinner>
                     <h3 class="score"> {{ game?.metacritic }} </h3>
-                </div>
+                </a>  
             </div>
         </div>
     </div>
@@ -52,37 +52,58 @@
             <div class="info-box">
                 <div class="row w-100 info p-0">
                     <div class="col-lg-10 d-flex flex-column justify-content-evenly align-items-center text-center align-items-lg-start text-lg-start">
-                        <p *ngIf="game?.released"> Rilasciato: <b> {{ game?.released | fulldate }} </b> </p>
-                        <hr *ngIf="game?.released" class="w-100">
+                        <div *ngIf="game?.released" class="w-100"> 
+                            <p> 
+                                Rilasciato: 
+                                <b> {{ game?.released | fulldate }} </b> 
+                            </p> 
+                        </div>
 
-                        <p *ngIf="game?.developers"> Sviluppato da: 
-                            <b> <span *ngFor="let developer of game?.developers; let i = index; let size = count"> 
-                                {{ developer.name }}<span *ngIf="i < size - 1">,</span>
-                            </span> </b>
-                        </p>
-                        <hr *ngIf="game?.developers" class="w-100">
+                        <div *ngIf="game?.developers && game?.developers!.length > 0" class="w-100"> 
+                            <hr class="w-100">
+                            <p>
+                                Sviluppato da: 
+                                <b> <span *ngFor="let developer of game?.developers; let i = index; let size = count"> 
+                                    {{ developer.name }}<span *ngIf="i < size - 1">,</span>
+                                </span> </b>
+                            </p>
+                        </div>
 
-                        <p *ngIf="game?.publishers"> Publisher:
-                            <b> <span *ngFor="let publisher of game?.publishers; let i = index; let size = count"> 
-                                {{ publisher.name }}<span *ngIf="i < size - 1">,</span>
-                            </span> </b>
-                        </p>
-                        <hr *ngIf="game?.publishers" class="w-100">
+                        <div *ngIf="game?.publishers && game?.publishers!.length > 0" class="w-100"> 
+                            <hr class="w-100">
+                            <p>
+                                Publisher:
+                                <b> <span *ngFor="let publisher of game?.publishers; let i = index; let size = count"> 
+                                    {{ publisher.name }}<span *ngIf="i < size - 1">,</span>
+                                </span> </b>
+                            </p>
+                        </div>
+                        
 
-                        <p *ngIf="game?.website"> Sito web:
-                            <b> <a target="_blank" [href]="game?.website"> {{ stripUrl(game?.website) }} </a> </b>
-                        </p>
-                        <hr *ngIf="game?.website" class="w-100">
+                        <div *ngIf="game?.platforms && game?.platforms!.length > 0" class="w-100"> 
+                            <hr class="w-100">
+                            <p>
+                                Disponibile per:
+                                <span *ngFor="let platform of game?.platforms; let i = index; let size = count"> 
+                                    <b>{{ platform.platform.name }}</b>
+                                    <span *ngIf="i < size - 1">, </span> 
+                                </span>
+                            </p>
+                        </div>
+                        
 
-                        <p *ngIf="game?.platforms"> Disponibile per:
-                            <span *ngFor="let platform of game?.platforms; let i = index; let size = count"> 
-                                <b>{{ platform.platform.name }}</b>
-                                <span *ngIf="i < size - 1">, </span> 
-                            </span>
-                        </p>
-                        <hr class="d-lg-none w-100 mb-4">
+                        <div *ngIf="game?.website" class="w-100"> 
+                            <hr class="w-100">
+                            <p>
+                                Sito web:
+                                <b> <a class="link" target="_blank" [href]="game?.website"> {{ stripUrl(game?.website) }} </a> </b>
+                            </p>
+                        </div>
+                        
+                        
                     </div>
                     <div class="col-lg-2 text-center d-flex flex-column align-items-center justify-content-center">
+                        <hr class="w-100 mb-3 d-lg-none">
                         <div>
                             <div class="esrb-logo" [style.background-image]="'url(assets/esrb/' + game?.esrb_rating?.slug + '.svg)'"></div>
                         </div>
@@ -91,7 +112,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="screenshots.length > 0" class="row mt-4">
+    <div *ngIf="screenshots.length > 0" class="row mt-5">
         <h3>Screenshot</h3>
         <div class="col-12">
             <div id="screenshotCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -111,9 +132,9 @@
               </div>
         </div>
     </div>
-    <div class="row mt-4">
+    <div class="row mt-5 mb-5">
+        <h3 class="mb-3">{{ reviews.length }} {{ (reviews.length > 1 || reviews.length === 0) ? "recensioni" : "recensione" }}</h3>
         <div class="col-lg-7 reviews">
-            <h3>{{ reviews.length }} {{ (reviews.length > 1 || reviews.length === 0) ? "recensioni" : "recensione" }}</h3>
             <div *ngFor="let currentReview of reviews">
                 <div class="card review-card">
                     <div class="row">
@@ -135,18 +156,40 @@
                     
                 </div>
             </div>
-            <h4 *ngIf="reviews.length <= 0">Nessuno ha ancora recensito questo gioco, sii il primo a farlo!</h4>
+            <h4 class="fw-light text-center text-lg-start" *ngIf="reviews.length <= 0">Nessuno ha ancora recensito questo gioco, sii il primo a farlo!</h4>
         </div>
-        <div class="col-lg-5 mt-custom-sm">
-            <h4>Scrivi una recensione</h4>
-            <form class="d-flex flex-column justify-content-evenly align-items-center text-start">
-                <p class="w-100" *ngIf="review.time">Hai già lasciato una recensione il {{ review.time.toString() | isodate }}. </p>
-                <textarea class="form-control form-control-lg black" name="reviewContent" [(ngModel)]="review.reviewContent" maxlength="140" minlength="1" placeholder="Recensione">
-                </textarea>
-                <mat-slider [displayWith]="formatVote" name="rating" id="rating" (change)="updateVote()" thumbLabel class="w-50 slider mt-2 mb-2" min="0.0" max="10.0" step="0.5" [value]="(review.rating !== undefined ? review.rating : '5.0')"></mat-slider>
-                <button class="form-control btn btn-success" (click)="sendReview()"> {{ review.time ? "Modifica" : "Invia" }} recensione</button>
-            </form>
+        <div class="d-flex w-100 flex-row justify-content-center align-items-center d-lg-none">
+            <hr class="d-lg-none w-100 mb-2">
         </div>
+        <div class="col-lg-5 mt-custom-sm d-flex flex-column justify-content-center">
+            <div *ngIf="localStorage?.getItem('username')">
+                <h4>Scrivi una recensione</h4>
+                <form class="d-flex flex-column justify-content-evenly align-items-center text-start">
+                    <p class="w-100" *ngIf="review.time">Hai già lasciato una recensione il {{ review.time.toString() | isodate }}. </p>
+                    <textarea class="form-control form-control-lg black" name="reviewContent" [(ngModel)]="review.reviewContent" maxlength="140" minlength="1" placeholder="Recensione">
+                    </textarea>
+                    <mat-slider [displayWith]="formatVote" name="rating" id="rating" (change)="updateVote()" thumbLabel class="w-50 slider mt-2 mb-2" min="0.0" max="10.0" step="0.5" [value]="(review.rating !== undefined ? review.rating : '5.0')"></mat-slider>
+                    <button class="form-control btn btn-success" (click)="sendReview()"> {{ review.time ? "Modifica" : "Invia" }} recensione</button>
+                </form>
+            </div>
+            <h3 class="fw-light text-center text-lg-start" *ngIf="!localStorage?.getItem('username')"><a class="link" routerLink="/gaming/login">Accedi</a> per lasciare una recensione.</h3>
+        </div>
+    </div>
+
+    <div *ngIf="clips.length > 0" class="row mt-5 clips d-flex flex-column align-items-center align-items-lg-start">
+        <h3>Clip più popolari (30 giorni)</h3>
+        <div class="row mt-3">   
+            <div *ngFor="let clip of clips" class="col-lg-6 mb-5 text-start">
+                <h4 class="mb-1 fw-light">
+                    <a target="_blank" class="link text-decoration-none" [href]="clip.url">{{ clip.title }}</a>
+                </h4>
+                <h5 class="mb-2 fw-light">
+                    Canale: <a target="_blank" class="link text-decoration-none" href="https://twitch.tv/{{ clip.broadcaster_name }}">{{ clip.broadcaster_name }}</a>
+                </h5>
+                <video class="w-100 br-10" [src]="clip.thumbnail_url | clipurl" controls></video>
+            </div>
+        </div>
+        
     </div>
     
 </div>

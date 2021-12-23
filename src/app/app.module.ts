@@ -18,6 +18,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { GamepageComponent } from './components/gamepage/gamepage.component';
 import { FulldatePipe } from './pipes/fulldate.pipe';
 import { IsodatePipe } from './pipes/isodate.pipe';
+import { FatalerrorComponent } from './components/fatalerror/fatalerror.component';
+import { ClipurlPipe } from './pipes/clipurl.pipe';
 
 
 
@@ -32,7 +34,9 @@ import { IsodatePipe } from './pipes/isodate.pipe';
     NavbarComponent,
     GamepageComponent,
     FulldatePipe,
-    IsodatePipe
+    IsodatePipe,
+    FatalerrorComponent,
+    ClipurlPipe
   ],
   imports: [
     BrowserModule,

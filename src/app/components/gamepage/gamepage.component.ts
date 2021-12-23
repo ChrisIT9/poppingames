@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DetailedGameResponse, Review, Screenshot } from 'src/app/Models/Types';
+import { Clip, DetailedGameResponse, Review, Screenshot } from 'src/app/Models/Types';
 import { BackendService } from 'src/app/services/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { RawgService } from 'src/app/services/rawg.service';
+import { TwitchserviceService } from 'src/app/services/twitchservice.service';
 
 @Component({
   selector: 'app-gamepage',
@@ -17,6 +18,8 @@ export class GamepageComponent implements OnInit {
   parsedDescription: string | null = null;
   reviews: Review[] = new Array();
   review: Partial<Review> = {}
+  localStorage: Storage | undefined;
+  clips: Clip[] = new Array();
 
   formatVote(value: number) {
     return `${value}/10`;
@@ -43,12 +46,21 @@ export class GamepageComponent implements OnInit {
     document.title = this.game?.name!;
   }
 
-  constructor(private backendService: BackendService, private activatedRoute: ActivatedRoute, private rawgService: RawgService, private router: Router, public localStorageService: LocalstorageService) { 
+  constructor(private twitchService: TwitchserviceService, private backendService: BackendService, private activatedRoute: ActivatedRoute, private rawgService: RawgService, private router: Router, public localStorageService: LocalstorageService) { 
     
   }
 
   ngOnInit(): void {
     window.scroll(0, 0);
+
+    this.backendService
+    .getHome()
+    .subscribe(res => {
+      if (!res.isLoggedIn) localStorage.clear();
+    })
+
+    this.localStorage = this.localStorageService.getLocalStorage();
+
     this.gameId = this.activatedRoute.snapshot.params['id'];
 
     if (isNaN(Number(this.gameId))) {
@@ -58,17 +70,27 @@ export class GamepageComponent implements OnInit {
 
     this.review.gameId = this.gameId;
     
-
     this.rawgService
-    .getCachedGameById(this.gameId!)
+    .getGameById(this.gameId!)
     .subscribe(res => {
       this.game = res;
       this.game.description = this.parseHTML(this.game.description);
       this.setWindowTitle();
+
+      this.twitchService
+      .getIdByName(this.game?.name!)
+      .subscribe(res => {
+        this.twitchService
+        .getClipsById(res.data[0].id)
+        .subscribe(res => {
+            this.clips = res.data;
+            console.log(this.clips);
+          })
+        })
     })
 
     this.rawgService
-    .getCachedScreenshots(this.gameId!)
+    .getScreenshots(this.gameId!)
     .subscribe(res => {
       this.screenshots = res.results;
     })
@@ -80,6 +102,10 @@ export class GamepageComponent implements OnInit {
       const ownReview = this.reviews.find(item => item.reviewedBy === localStorage.getItem("username"));
       if (ownReview) Object.assign(this.review, ownReview);
     })
+
+    
+
+    
   }
 
   updateVote() {
