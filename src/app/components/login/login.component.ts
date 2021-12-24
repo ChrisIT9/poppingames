@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
             const fatalError = document.getElementById("fatal-error");
             if (fatalError) fatalError.style.display = "flex";
         }
-        else this.router.navigateByUrl('/gaming');
+        else this.router.navigateByUrl('/poppingames');
     }
 
     private async loginHandler(res: LoginResponse) {
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         const successDiv = document.getElementById("success");
         if (successDiv) successDiv.style.height = "100%";
         await sleep(1500);
-        return this.router.navigateByUrl('/gaming');
+        return this.router.navigateByUrl('/poppingames');
     }
 
     private isValidUsername() {

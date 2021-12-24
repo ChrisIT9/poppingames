@@ -20,6 +20,7 @@ import { FulldatePipe } from './pipes/fulldate.pipe';
 import { IsodatePipe } from './pipes/isodate.pipe';
 import { FatalerrorComponent } from './components/fatalerror/fatalerror.component';
 import { ClipurlPipe } from './pipes/clipurl.pipe';
+import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 
 
 
@@ -36,7 +37,8 @@ import { ClipurlPipe } from './pipes/clipurl.pipe';
         FulldatePipe,
         IsodatePipe,
         FatalerrorComponent,
-        ClipurlPipe
+        ClipurlPipe,
+        ScrollToTopComponent
     ],
     imports: [
         BrowserModule,

@@ -2,6 +2,8 @@
 
 <app-fatalerror></app-fatalerror>
 
+<app-scroll-to-top></app-scroll-to-top>
+
 <div class="mt-5 container-lg p-3">
     <div class="input-group mb-3">
         <input type="text" autocomplete="off" class="form-control custom-text" name="query" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Cerca un gioco!">
@@ -18,7 +20,7 @@
         <div *ngIf="loading" class="col-12 d-flex flex-row justify-content-center align-items-center">
             <mat-spinner></mat-spinner>
         </div>
-        <div class="col-lg-4 col-md-6 mb-5" *ngFor="let game of games" routerLink='/gaming/games/{{ game.id }}' [state]="game">
+        <div class="col-lg-4 col-md-6 mb-5" *ngFor="let game of games" routerLink='/poppingames/games/{{ game.id }}' [state]="game">
             <app-game [game]="game"></app-game>
         </div>
     </div>

@@ -1,0 +1,19 @@
+.stp {
+    width: 52px;
+    height: 52px;
+    font-size: 52px;
+    color: white;
+    background-color: #600634;
+    border-radius: 100%;
+    position: fixed;
+    bottom: 15px;
+    right: -100px;
+    z-index: 999;
+    cursor: pointer;
+    transition: 0.2s ease-in-out all;
+    opacity: 0.8;
+
+    &:hover {
+        transform: scale(1.15);
+    }
+}

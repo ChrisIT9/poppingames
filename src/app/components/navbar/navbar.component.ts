@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
 
     private redirect() {
         localStorage.clear();
-        this.router.navigateByUrl("/gaming/");
+        this.router.navigateByUrl("/poppingames");
     }
 
     constructor(private router: Router, private backendService: BackendService, public localStorageService: LocalstorageService) { }

@@ -172,10 +172,14 @@
                     <button class="form-control btn btn-success" (click)="sendReview()"> {{ review.time ? "Modifica" : "Invia" }} recensione</button>
                 </form>
             </div>
-            <h3 class="fw-light text-center text-lg-start" *ngIf="!localStorage?.getItem('username')"><a class="link" routerLink="/gaming/login">Accedi</a> per lasciare una recensione.</h3>
+            <h3 class="fw-light text-center" *ngIf="!localStorage?.getItem('username')"><a class="link" routerLink="/poppingames/login">Accedi</a> per lasciare una recensione.</h3>
         </div>
     </div>
 
+    
+    
+</div>
+<div class="container-fluid clips-div">
     <div *ngIf="clips.length > 0" class="row mt-5 clips d-flex flex-column align-items-center align-items-lg-start">
         <h3>Clip più popolari (30 giorni)</h3>
         <div class="row mt-3">   
@@ -184,16 +188,13 @@
                     <a target="_blank" class="link text-decoration-none" [href]="clip.url">{{ clip.title }}</a>
                 </h4>
                 <h5 class="mb-2 fw-light">
-                    Canale: <a target="_blank" class="link text-decoration-none" href="https://twitch.tv/{{ clip.broadcaster_name }}">{{ clip.broadcaster_name }}</a>
+                    di <a target="_blank" class="link text-decoration-none" href="https://twitch.tv/{{ clip.broadcaster_name }}">{{ clip.broadcaster_name }}</a>
                 </h5>
                 <video class="w-100 br-10" [src]="clip.thumbnail_url | clipurl" controls></video>
             </div>
         </div>
-        
     </div>
-    
 </div>
-
     
 
     

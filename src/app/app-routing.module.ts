@@ -6,11 +6,11 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
-    { path: "gaming", component: GamingComponent }, 
-    { path: "gaming/register", component: RegisterComponent }, 
-    { path: 'gaming/login', component: LoginComponent },
-    { path: 'gaming/games/:id', component: GamepageComponent },
-    { path: 'gaming/games', component: GamingComponent }];
+    { path: "poppingames", component: GamingComponent }, 
+    { path: "poppingames/register", component: RegisterComponent }, 
+    { path: 'poppingames/login', component: LoginComponent },
+    { path: 'poppingames/games/:id', component: GamepageComponent },
+    { path: 'poppingames/games', component: GamingComponent }];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
