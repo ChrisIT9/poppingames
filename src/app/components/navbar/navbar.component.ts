@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 
@@ -13,10 +13,10 @@ export class NavbarComponent implements OnInit {
 
     private redirect() {
         localStorage.clear();
-        this.router.navigateByUrl("/poppingames");
+        this.router.navigate([], { relativeTo: this.activatedRoute.parent, queryParamsHandling: 'preserve' })
     }
 
-    constructor(private router: Router, private backendService: BackendService, public localStorageService: LocalstorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, private router: Router, private backendService: BackendService, public localStorageService: LocalstorageService) { }
 
     ngOnInit(): void {
         this.localStorage = this.localStorageService.getLocalStorage();

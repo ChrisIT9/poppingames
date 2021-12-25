@@ -20,6 +20,7 @@ export class GamepageComponent implements OnInit {
 	review: Partial<Review> = {}
 	localStorage: Storage | undefined;
 	clips: Clip[] = new Array();
+	reviewErrors: string[] = new Array();
 
 	formatVote(value: number) {
 		return `${value}/10`;
@@ -46,8 +47,18 @@ export class GamepageComponent implements OnInit {
 		document.title = this.game?.name!;
 	}
 
-	constructor(private twitchService: TwitchserviceService, private backendService: BackendService, private activatedRoute: ActivatedRoute, private rawgService: RawgService, private router: Router, public localStorageService: LocalstorageService) { 
+	private getReviews() {
+		this.backendService
+			.getReviews(this.gameId!)
+			.subscribe(res => {
+				this.reviews = res;
+				const ownReview = this.reviews.find(item => item.reviewedBy === localStorage.getItem("username"));
+				if (ownReview) Object.assign(this.review, ownReview);
+			})
+	}
 
+	constructor(private twitchService: TwitchserviceService, private backendService: BackendService, private activatedRoute: ActivatedRoute, private rawgService: RawgService, private router: Router, public localStorageService: LocalstorageService) { 
+		this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 	}
 
 	ngOnInit(): void {
@@ -95,13 +106,7 @@ export class GamepageComponent implements OnInit {
 				this.screenshots = res.results;
 			})
 
-		this.backendService
-			.getReviews(this.gameId!)
-			.subscribe(res => {
-				this.reviews = res;
-				const ownReview = this.reviews.find(item => item.reviewedBy === localStorage.getItem("username"));
-				if (ownReview) Object.assign(this.review, ownReview);
-			})
+		this.getReviews();
 	}
 
 	updateVote() {
@@ -111,16 +116,22 @@ export class GamepageComponent implements OnInit {
 
 	sendReview() { 
 		this.updateVote();
-		if (
-			!this.review.reviewContent || (this.review.reviewContent?.length < 1 || this.review.reviewContent?.length > 140) ||
-	  		this.review.rating === undefined || (this.review.rating < 0.0 || this.review.rating > 10.0)
-		) return;
-		this.backendService
-			.sendReview(this.review)
-			.subscribe(res => {
-				console.log(res);
-				window.location.reload();
-			});
+		this.reviewErrors.splice(0);
+		
+		if (!this.review.reviewContent) this.reviewErrors.push("Recensione non valida!");
+		else if (this.review.reviewContent?.length < 1 || this.review.reviewContent?.length > 140) 
+			this.reviewErrors.push("La recensione deve essere tra 1 e 140 caratteri!");
+
+		if (this.review.rating === undefined) this.reviewErrors.push("Voto non valido!");
+		else if (this.review.rating < 0.0 || this.review.rating > 10.0)
+			this.reviewErrors.push("Il voto deve essere tra 0.0 e 10.0!");
+		
+		if (this.reviewErrors.length === 0) 
+			this.backendService
+				.sendReview(this.review)
+				.subscribe(_ => {
+					this.getReviews();
+				});
 	}
 
 }

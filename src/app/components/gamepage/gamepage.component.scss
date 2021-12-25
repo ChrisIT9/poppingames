@@ -154,6 +154,7 @@
     max-height: 350px;
     overflow: hidden;
     overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .review-card {
@@ -217,6 +218,11 @@
     }
 }
 
+.review-errors {
+    h3 {
+        color: #ff6565;
+    }
+}
 
 
 @media screen and (max-width: 767px) {
@@ -235,6 +241,6 @@
     }
 
     .clips-div {
-        padding: 5px 40px;
+        padding: 5px 50px;
     }
 }

@@ -6,9 +6,9 @@
 
 <div class="mt-5 container-lg p-3">
     <div class="input-group mb-3">
-        <input type="text" autocomplete="off" class="form-control custom-text" name="query" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Cerca un gioco!">
+        <input type="text" autocomplete="off" class="form-control custom-text" name="query" [(ngModel)]="query" (keyup.enter)="initSearch()" placeholder="Cerca un gioco!">
         <div class="input-group-append">
-          <button class="btn btn-success custom-button" (click)="search()" type="button">Cerca</button>
+          <button class="btn btn-success custom-button" (click)="initSearch()" type="button">Cerca</button>
           <button *ngIf="hasSearched" class="btn btn-danger reset-button" (click)="reset()" type="button">Reset</button>
         </div>
     </div>
@@ -21,7 +21,7 @@
             <mat-spinner></mat-spinner>
         </div>
         <div class="col-lg-4 col-md-6 mb-5" *ngFor="let game of games" routerLink='/poppingames/games/{{ game.id }}' [state]="game">
-            <app-game [game]="game"></app-game>
+            <app-game (click)="cacheGames()" [game]="game"></app-game>
         </div>
     </div>
 </div>

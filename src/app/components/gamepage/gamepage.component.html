@@ -164,6 +164,9 @@
         <div class="col-lg-5 mt-custom-sm d-flex flex-column justify-content-center">
             <div *ngIf="localStorage?.getItem('username')">
                 <h4>Scrivi una recensione</h4>
+                <div *ngIf="reviewErrors.length > 0" class="review-errors">
+                    <h3 *ngFor="let error of reviewErrors">{{ error }}</h3>
+                </div>
                 <form class="d-flex flex-column justify-content-evenly align-items-center text-start">
                     <p class="w-100" *ngIf="review.time">Hai già lasciato una recensione il {{ review.time.toString() | isodate }}. </p>
                     <textarea class="form-control form-control-lg black" name="reviewContent" [(ngModel)]="review.reviewContent" maxlength="140" minlength="1" placeholder="Recensione">
@@ -175,14 +178,11 @@
             <h3 class="fw-light text-center" *ngIf="!localStorage?.getItem('username')"><a class="link" routerLink="/poppingames/login">Accedi</a> per lasciare una recensione.</h3>
         </div>
     </div>
-
-    
-    
 </div>
 <div class="container-fluid clips-div">
     <div *ngIf="clips.length > 0" class="row mt-5 clips d-flex flex-column align-items-center align-items-lg-start">
         <h3>Clip più popolari (30 giorni)</h3>
-        <div class="row mt-3">   
+        <div class="row mt-3 test">   
             <div *ngFor="let clip of clips" class="col-lg-6 mb-5 text-start">
                 <h4 class="mb-1 fw-light">
                     <a target="_blank" class="link text-decoration-none" [href]="clip.url">{{ clip.title }}</a>
@@ -190,11 +190,13 @@
                 <h5 class="mb-2 fw-light">
                     di <a target="_blank" class="link text-decoration-none" href="https://twitch.tv/{{ clip.broadcaster_name }}">{{ clip.broadcaster_name }}</a>
                 </h5>
-                <video class="w-100 br-10" [src]="clip.thumbnail_url | clipurl" controls></video>
+                <video class="w-100" [src]="clip.thumbnail_url | clipurl" controls></video>
             </div>
         </div>
     </div>
-</div>
+</div> 
+
+
     
 
     
