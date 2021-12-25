@@ -33,6 +33,10 @@ export class GamingComponent implements OnInit, OnDestroy {
         })
     }
 
+    setWindowTitle(gameName: string) {
+        document.title = `PoppinGames - ${gameName}`;
+    }
+
     private search() {
         if (this.query !== undefined && this.query != "") {
             this.noResults = false;
@@ -63,7 +67,6 @@ export class GamingComponent implements OnInit, OnDestroy {
     }
   
     private init() {
-        document.title = "PoppinGames";
         this.loading = true;
         this.hasSearched = false;
         this.query = undefined;
@@ -75,15 +78,22 @@ export class GamingComponent implements OnInit, OnDestroy {
         if (this.cacheService.cacheAvailable()) {
             this.games = this.cacheService.getCachedGames();
             if (this.games.length > 0) this.noResults = false;
+            if (queryParams['name']) {
+                this.hasSearched = true;
+                this.query = queryParams['name'];
+                this.setWindowTitle(this.query!);
+            } 
             this.loading = false;
         } 
         else if (queryParams['name']) {
             this.query = queryParams['name'];
+            this.setWindowTitle(this.query!);
             this.search();
         } else {
             this.rawgService
             .getGames()
             .subscribe(res => {
+                document.title = "PoppinGames";
                 this.games = res.results;
                 this.loading = false;
                 if (this.games.length > 0) this.noResults = false;

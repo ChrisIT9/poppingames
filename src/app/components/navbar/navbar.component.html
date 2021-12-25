@@ -14,7 +14,7 @@
                         <a *ngIf="localStorage?.getItem('username')" class="nav-link white-clickable" routerLink="/poppingames">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a *ngIf="!localStorage?.getItem('username')" class="nav-link white-clickable" routerLink="/poppingames/login">Login</a>
+                        <a *ngIf="!localStorage?.getItem('username')" (click)="this.localStorage?.setItem('redirectUrl', this.router.url)" class="nav-link white-clickable" routerLink="/poppingames/login">Login</a>
                     </li>
                     <li class="nav-item">
                         <a *ngIf="!localStorage?.getItem('username')" class="nav-link white-clickable" routerLink="/poppingames/register">Registrazione</a>

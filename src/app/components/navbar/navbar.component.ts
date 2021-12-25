@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
         this.router.navigate([], { relativeTo: this.activatedRoute.parent, queryParamsHandling: 'preserve' })
     }
 
-    constructor(private activatedRoute: ActivatedRoute, private router: Router, private backendService: BackendService, public localStorageService: LocalstorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, public router: Router, private backendService: BackendService, public localStorageService: LocalstorageService) { }
 
     ngOnInit(): void {
         this.localStorage = this.localStorageService.getLocalStorage();

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginResponse } from 'src/app/Models/Types';
 import { BackendService } from 'src/app/services/backend.service';
+import { CacheService } from 'src/app/services/cache.service';
 import { sleep } from 'src/app/Utils/Timer';
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
     password: string | undefined;
     errors: string[] = [];
 
-    constructor(private backendService: BackendService, private router: Router) { }
+    constructor(private cacheService: CacheService, private backendService: BackendService, public router: Router) { }
 
     private redirect(err: HttpErrorResponse) {
         if (!err.status || err.status === 500) {
@@ -24,7 +25,10 @@ export class LoginComponent implements OnInit {
             const fatalError = document.getElementById("fatal-error");
             if (fatalError) fatalError.style.display = "flex";
         }
-        else this.router.navigateByUrl('/poppingames');
+        else {
+            this.cacheService.getCachedGames();
+            this.router.navigateByUrl('/poppingames');
+        } 
     }
 
     private async loginHandler(res: LoginResponse) {
@@ -34,7 +38,9 @@ export class LoginComponent implements OnInit {
         const successDiv = document.getElementById("success");
         if (successDiv) successDiv.style.height = "100%";
         await sleep(1500);
-        return this.router.navigateByUrl('/poppingames');
+        const redirectUrl = localStorage.getItem('redirectUrl');
+        if (redirectUrl) localStorage.removeItem('redirectUrl')
+        return this.router.navigateByUrl(redirectUrl || '/poppingames');
     }
 
     private isValidUsername() {
