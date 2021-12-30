@@ -175,7 +175,9 @@
                     <button class="form-control btn btn-success" (click)="sendReview()"> {{ review.time ? "Modifica" : "Invia" }} recensione</button>
                 </form>
             </div>
-            <h3 class="fw-light text-center" *ngIf="!localStorage?.getItem('username')"><a class="link" routerLink="/poppingames/login">Accedi</a> per lasciare una recensione.</h3>
+            <h3 class="fw-light text-center" *ngIf="!localStorage?.getItem('username')">
+                <a class="link" routerLink="/poppingames/login" (click)="setRedirectUrl()">Accedi</a> per lasciare una recensione.
+            </h3>
         </div>
     </div>
 </div>

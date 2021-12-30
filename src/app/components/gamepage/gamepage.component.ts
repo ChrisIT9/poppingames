@@ -134,4 +134,8 @@ export class GamepageComponent implements OnInit {
 				});
 	}
 
+	setRedirectUrl() {
+		localStorage.setItem("redirectUrl", this.router.url);
+	}
+
 }
