@@ -180,6 +180,11 @@ export interface Review {
     time: Date
 }
 
+export interface ReviewsResponse {
+    reviews: Review[],
+    average: number
+}
+
 export interface BackendResponse {
     isLoggedIn: boolean
 }

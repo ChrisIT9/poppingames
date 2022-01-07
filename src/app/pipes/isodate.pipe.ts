@@ -10,7 +10,7 @@ export class IsodatePipe implements PipeTransform {
         const [ date, time ] = value.split("T");
         const [ year, month, day ] = date.split("-");
 
-        return `${day}/${month}/${year} alle ${time.substring(0, time.length - 5)}`;
+        return `${day}/${month}/${year} alle ${time.substring(0, time.length - 5)} UTC`;
     }
 
 }

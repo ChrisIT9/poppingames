@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BackendResponse, LoginResponse, RegisterResponse, Review } from '../Models/Types';
+import { BackendResponse, LoginResponse, RegisterResponse, Review, ReviewsResponse } from '../Models/Types';
 
 @Injectable({
     providedIn: 'root'
@@ -33,7 +33,7 @@ export class BackendService {
     }
 
     getReviews(gameId: string) {
-        return this.httpClient.get<Review[]>(`${this.endpoint}/reviews/${gameId}`);
+        return this.httpClient.get<ReviewsResponse>(`${this.endpoint}/reviews/${gameId}`);
     }
 
     sendReview(review: Partial<Review>) {

@@ -21,6 +21,7 @@ export class GamepageComponent implements OnInit {
 	localStorage: Storage | undefined;
 	clips: Clip[] = new Array();
 	reviewErrors: string[] = new Array();
+	averageRating: number | undefined;
 
 	formatVote(value: number) {
 		return `${value}/10`;
@@ -51,7 +52,8 @@ export class GamepageComponent implements OnInit {
 		this.backendService
 			.getReviews(this.gameId!)
 			.subscribe(res => {
-				this.reviews = res;
+				this.reviews = res.reviews;
+				this.averageRating = res.average;
 				const ownReview = this.reviews.find(item => item.reviewedBy === localStorage.getItem("username"));
 				if (ownReview) Object.assign(this.review, ownReview);
 			})

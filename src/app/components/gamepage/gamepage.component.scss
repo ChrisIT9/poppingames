@@ -224,6 +224,9 @@
     }
 }
 
+.url {
+    word-break: break-word;
+}
 
 @media screen and (max-width: 767px) {
     .mt-custom-sm {

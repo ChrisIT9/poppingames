@@ -96,7 +96,7 @@
                             <hr class="w-100">
                             <p>
                                 Sito web:
-                                <b> <a class="link" target="_blank" [href]="game?.website"> {{ stripUrl(game?.website) }} </a> </b>
+                                <b> <a class="link url" target="_blank" [href]="game?.website"> {{ stripUrl(game?.website) }} </a> </b>
                             </p>
                         </div>
                         
@@ -133,7 +133,10 @@
         </div>
     </div>
     <div class="row mt-5 mb-5">
-        <h3 class="mb-3">{{ reviews.length }} {{ (reviews.length > 1 || reviews.length === 0) ? "recensioni" : "recensione" }}</h3>
+        <h3 class="mb-3">
+            {{ reviews.length }} {{ (reviews.length > 1 || reviews.length === 0) ? "recensioni" : "recensione" }}
+            <h5 class="fw-light d-inline" *ngIf="reviews.length > 0"> • Media: {{ averageRating }}/10</h5>
+        </h3>
         <div class="col-lg-7 reviews">
             <div *ngFor="let currentReview of reviews">
                 <div class="card review-card">
@@ -182,9 +185,9 @@
     </div>
 </div>
 <div class="container-fluid clips-div">
-    <div *ngIf="clips.length > 0" class="row mt-5 clips d-flex flex-column align-items-center align-items-lg-start">
+    <div *ngIf="clips.length > 0" class="row mt-5 clips d-flex flex-column align-items-center align-items-lg-between">
         <h3>Clip più popolari (30 giorni)</h3>
-        <div class="row mt-3 test">   
+        <div class="row mt-3">   
             <div *ngFor="let clip of clips" class="col-lg-6 mb-5 text-start">
                 <h4 class="mb-1 fw-light">
                     <a target="_blank" class="link text-decoration-none" [href]="clip.url">{{ clip.title }}</a>
