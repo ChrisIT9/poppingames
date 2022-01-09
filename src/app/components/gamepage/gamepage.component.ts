@@ -140,4 +140,9 @@ export class GamepageComponent implements OnInit {
 		localStorage.setItem("redirectUrl", this.router.url);
 	}
 
+	checkBroadcasterName(broadcasterName: string) {
+		const regex = /^[~`!@#$%^&*()_+=[\]\{}|;':",.\/<>?a-zA-Z0-9-]+$/;
+		return regex.test(broadcasterName);
+	}
+
 }

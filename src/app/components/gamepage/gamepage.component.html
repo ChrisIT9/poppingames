@@ -194,7 +194,11 @@
                     <a target="_blank" class="link text-decoration-none" [href]="clip.url">{{ clip.title }}</a>
                 </h4>
                 <h5 class="fw-light mb-2">
-                    di <a target="_blank" class="link text-decoration-none" href="https://twitch.tv/{{ clip.broadcaster_name }}">{{ clip.broadcaster_name }}</a>
+                    di 
+                    <a 
+                        [attr.href]="checkBroadcasterName(clip.broadcaster_name) ? 'https://twitch.tv/' + clip.broadcaster_name : null" target="_blank" class="link text-decoration-none">
+                        {{ clip.broadcaster_name }}
+                    </a>
                 </h5>
                 <video class="w-100" [src]="clip.thumbnail_url | clipurl" controls></video>
             </div>
