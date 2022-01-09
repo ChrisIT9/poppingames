@@ -212,7 +212,7 @@ export interface Clip {
     language: string;
     title: string;
     view_count: number;
-    created_at: Date;
+    created_at: string;
     thumbnail_url: string;
     duration: number;
 }

@@ -135,7 +135,7 @@
     <div class="row mt-5 mb-5">
         <h3 class="mb-3">
             {{ reviews.length }} {{ (reviews.length > 1 || reviews.length === 0) ? "recensioni" : "recensione" }}
-            <h5 class="fw-light d-inline" *ngIf="reviews.length > 0"> • Media: {{ averageRating }}/10</h5>
+            <h5 class="fw-light d-inline" *ngIf="reviews.length > 0"> • Media: {{ averageRating | rating }}/10</h5>
         </h3>
         <div class="col-lg-7 reviews">
             <div *ngFor="let currentReview of reviews">
@@ -189,10 +189,11 @@
         <h3>Clip più popolari (30 giorni)</h3>
         <div class="row mt-3">   
             <div *ngFor="let clip of clips" class="col-lg-6 mb-5 text-start">
-                <h4 class="mb-1 fw-light">
+                <i class="fw-light clip-date"> {{ clip.created_at.substr(0, 10) | date }} </i>
+                <h4 class="mt-0 mb-0 fw-light">
                     <a target="_blank" class="link text-decoration-none" [href]="clip.url">{{ clip.title }}</a>
                 </h4>
-                <h5 class="mb-2 fw-light">
+                <h5 class="fw-light mb-2">
                     di <a target="_blank" class="link text-decoration-none" href="https://twitch.tv/{{ clip.broadcaster_name }}">{{ clip.broadcaster_name }}</a>
                 </h5>
                 <video class="w-100" [src]="clip.thumbnail_url | clipurl" controls></video>
