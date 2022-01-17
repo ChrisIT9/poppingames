@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="game-details">
-                <a *ngIf="game?.metacritic" [attr.href]="(game?.metacritic_url ? game?.metacritic_url : null)" class="metacritic" target="_blank">
+                <a *ngIf="game?.metacritic" [attr.href]="(game?.metacritic_url ? game?.metacritic_url : null)" class="metacritic" [ngClass]="{ hoverable: game?.metacritic_url }" target="_blank">
                     <img class="img-fluid m-logo" src="/assets/misc/Metacritic_logo.svg">
                     <mat-progress-spinner 
                     class="score-spinner" 

@@ -253,6 +253,14 @@
     font-size: 1.1rem;
 }
 
+.hoverable {
+    transition: 0.2s ease-in-out all;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
 @media screen and (max-width: 767px) {
     .mt-custom-sm {
         margin-top: 1.5rem;
