@@ -8,7 +8,8 @@ export class FulldatePipe implements PipeTransform {
 
     transform(value: string | undefined) {
         if (!value) return undefined;
-        const [ year, month, day ] = value.split("-");
+        let [ year, month, day ] = value.split("-");
+        if (day.startsWith("0")) day = day.replace("0", "");
         return `${day} ${this.months[Number(month) - 1]} ${year}`;
     }
 

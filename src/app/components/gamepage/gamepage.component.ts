@@ -22,6 +22,8 @@ export class GamepageComponent implements OnInit {
 	clips: Clip[] = new Array();
 	reviewErrors: string[] = new Array();
 	averageRating: number | undefined;
+	isAdmin: boolean | undefined;
+	ownReviewId: string | undefined;
 
 	formatVote(value: number) {
 		return `${value}/10`;
@@ -55,7 +57,14 @@ export class GamepageComponent implements OnInit {
 				this.reviews = res.reviews;
 				this.averageRating = res.average;
 				const ownReview = this.reviews.find(item => item.reviewedBy === localStorage.getItem("username"));
-				if (ownReview) Object.assign(this.review, ownReview);
+				if (ownReview) {
+					Object.assign(this.review, ownReview);
+					this.ownReviewId = ownReview._id
+				}
+				else {
+					this.review = { gameId: this.gameId };
+					this.ownReviewId = undefined;
+				} 
 			})
 	}
 
@@ -70,6 +79,7 @@ export class GamepageComponent implements OnInit {
 			.getHome()
 			.subscribe(res => {
 				if (!res.isLoggedIn) localStorage.clear();
+				if (res.isAdmin) this.isAdmin = res.isAdmin;
 			})
 
 		this.localStorage = this.localStorageService.getLocalStorage();
@@ -143,6 +153,14 @@ export class GamepageComponent implements OnInit {
 	checkBroadcasterName(broadcasterName: string) {
 		const regex = /^[~`!@#$%^&*()_+=[\]\{}|;':",.\/<>?a-zA-Z0-9-]+$/;
 		return regex.test(broadcasterName);
+	}
+
+	deleteReview(id: string) {
+		this.backendService
+			.deleteReview(id)
+			.subscribe(_ => {
+				this.getReviews();
+			})
 	}
 
 }

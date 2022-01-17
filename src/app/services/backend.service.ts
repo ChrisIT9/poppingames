@@ -43,4 +43,8 @@ export class BackendService {
     logout() {
         return this.httpClient.post(`${this.endpoint}/logout`, {}, { withCredentials: true });
     }
+
+    deleteReview(id: string) {
+        return this.httpClient.delete(`${this.endpoint}/reviews/${id}`, { withCredentials: true });
+    }
 }

@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
         const successDiv = document.getElementById("success");
         if (successDiv) successDiv.style.height = "100%";
         await sleep(1500);
-        const redirectUrl = localStorage.getItem('redirectUrl');
+        let redirectUrl = localStorage.getItem('redirectUrl');
+        if (redirectUrl === '/poppingames/login') redirectUrl = '/poppingames';
         if (redirectUrl) localStorage.removeItem('redirectUrl')
         return this.router.navigateByUrl(redirectUrl || '/poppingames');
     }

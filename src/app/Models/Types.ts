@@ -173,6 +173,7 @@ export interface ScreenshotResponse {
 }
 
 export interface Review {
+    _id: string,
     gameId: string,
     reviewedBy: string,
     rating: number,
@@ -186,7 +187,8 @@ export interface ReviewsResponse {
 }
 
 export interface BackendResponse {
-    isLoggedIn: boolean
+    isLoggedIn: boolean,
+    isAdmin?: boolean
 }
 
 export interface TwitchGame {
