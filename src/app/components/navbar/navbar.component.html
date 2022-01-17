@@ -21,7 +21,7 @@
                     </li>
                 </ul>
             </div>
-            <hr class="display-lg-none">
+            <hr *ngIf="localStorage!.getItem('username')" class="display-lg-none">
             <div class="d-lg-flex flex-row justify-content-between">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
