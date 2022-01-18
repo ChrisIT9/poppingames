@@ -1,4 +1,4 @@
-<div class="card custom-card" [style.background-image]="'url(' + (game?.background_image || '/assets/default/gameboy.svg') + ')'">
+<div class="card custom-card" [style.background-image]="'url(' + ((game?.background_image | downscaledImage) || '/assets/default/gameboy.svg') + ')'">
     <div class="card-text">
       <div class="platforms">
         <div 

@@ -22,6 +22,7 @@ import { FatalerrorComponent } from './components/fatalerror/fatalerror.componen
 import { ClipurlPipe } from './pipes/clipurl.pipe';
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 import { RatingPipe } from './pipes/rating.pipe';
+import { DownscaledImagePipe } from './pipes/downscaled-image.pipe';
 
 
 
@@ -40,7 +41,8 @@ import { RatingPipe } from './pipes/rating.pipe';
         FatalerrorComponent,
         ClipurlPipe,
         ScrollToTopComponent,
-        RatingPipe
+        RatingPipe,
+        DownscaledImagePipe
     ],
     imports: [
         BrowserModule,
