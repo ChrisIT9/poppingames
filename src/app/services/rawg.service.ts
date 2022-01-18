@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { DetailedGameResponse, GameResponse, Response, ScreenshotResponse } from '../Models/Types';
+import { DetailedGameResponse, GameResponse, MoviesResponse, Response, ScreenshotResponse } from '../Models/Types';
 
 interface Options {
     limit?: number
@@ -44,6 +44,10 @@ export class RawgService {
 
     getScreenshots(id: string) {
         return this.httpClient.get<ScreenshotResponse>(`${this.endpoint}/${id}/screenshots?key=${this.apiKey}`);
+    }
+
+    getTrailers(id: string) {
+        return this.httpClient.get<MoviesResponse>(`${this.endpoint}/${id}/movies?key=${this.apiKey}`);
     }
   
 }

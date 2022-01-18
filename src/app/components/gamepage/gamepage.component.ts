@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Clip, DetailedGameResponse, Review, Screenshot } from 'src/app/Models/Types';
+import { Clip, DetailedGameResponse, Review, Screenshot, Trailer } from 'src/app/Models/Types';
 import { BackendService } from 'src/app/services/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { RawgService } from 'src/app/services/rawg.service';
@@ -24,6 +24,7 @@ export class GamepageComponent implements OnInit {
 	averageRating: number | undefined;
 	isAdmin: boolean | undefined;
 	ownReviewId: string | undefined;
+	mainTrailer: Trailer | undefined;
 
 	formatVote(value: number) {
 		return `${value}/10`;
@@ -116,6 +117,13 @@ export class GamepageComponent implements OnInit {
 			.getScreenshots(this.gameId!)
 			.subscribe(res => {
 				this.screenshots = res.results;
+			})
+
+		this.rawgService
+			.getTrailers(this.gameId!)
+			.subscribe(res => {
+				if (res.results.length > 0)
+					this.mainTrailer = res.results[0];
 			})
 
 		this.getReviews();

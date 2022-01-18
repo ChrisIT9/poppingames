@@ -222,3 +222,20 @@ export interface Clip {
 export interface TwitchClipResponse {
     data: Clip[]
 }
+
+export interface Trailer {
+    id: number,
+    name: string,
+    preview: string,
+    data: {
+        480: string,
+        max: string
+    }
+}
+
+export interface MoviesResponse {
+    id: number,
+    next: string | null,
+    previous: string | null,
+    results: Trailer[]
+}

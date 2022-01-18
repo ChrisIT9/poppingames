@@ -112,6 +112,12 @@
             </div>
         </div>
     </div>
+    <div *ngIf="mainTrailer" class="row mt-5">
+        <h3>Trailer</h3>
+        <div class="col-12">
+            <video [src]="mainTrailer.data.max" class="w-100" controls></video>
+        </div>
+    </div>
     <div *ngIf="screenshots.length > 0" class="row mt-5">
         <h3>Screenshot</h3>
         <div class="col-12">
