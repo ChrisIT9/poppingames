@@ -109,6 +109,7 @@ export class GamepageComponent implements OnInit {
 								.getClipsById(res.data[0].id)
 								.subscribe(res => {
 									this.clips = res.data;
+									console.log(this.clips);
 								})
 					})
 			})

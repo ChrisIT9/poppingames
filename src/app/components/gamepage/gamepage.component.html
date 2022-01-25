@@ -211,7 +211,7 @@
                         {{ clip.broadcaster_name }}
                     </a>
                 </h5>
-                <video class="w-100" [src]="clip.thumbnail_url | clipurl" controls></video>
+                <video class="w-100" [src]="clip.thumbnail_url | clipurl" controls preload="none" [poster]="clip.thumbnail_url"></video>
             </div>
         </div>
     </div>
