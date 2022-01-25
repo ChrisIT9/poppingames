@@ -121,7 +121,7 @@
     <div *ngIf="screenshots.length > 0" class="row mt-5">
         <h3>Screenshot</h3>
         <div class="col-12">
-            <div id="screenshotCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div id="screenshotCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
                 <div class="carousel-inner br-10">
                   <div *ngFor="let screenshot of screenshots; let i = index" [class]="(i === 0 ? 'carousel-item active' : 'carousel-item')">
                     <img [src]="screenshot.image" class="d-block w-100">
@@ -211,7 +211,7 @@
                         {{ clip.broadcaster_name }}
                     </a>
                 </h5>
-                <video class="w-100" [src]="clip.thumbnail_url | clipurl" controls preload="none" [poster]="clip.thumbnail_url"></video>
+                <video class="w-100 br-10" [src]="clip.thumbnail_url | clipurl" controls preload="none" [poster]="clip.thumbnail_url"></video>
             </div>
         </div>
     </div>
